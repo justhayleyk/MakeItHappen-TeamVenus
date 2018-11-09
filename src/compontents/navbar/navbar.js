@@ -16,7 +16,7 @@ export default class Makeithappennav extends React.Component {
 
   // I could have initialized state above, but lets get in the habit of setting state on mount.
   componentDidMount = () => {
-    this.state = {
+    this.setState = {
       isOpen: false
     };
   };
@@ -48,7 +48,7 @@ export default class Makeithappennav extends React.Component {
                 <NavLink href="/dream">Add Dream</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Sign Up | Login </NavLink>
+                <NavLink href="/loginsignup">Sign Up | Login </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
