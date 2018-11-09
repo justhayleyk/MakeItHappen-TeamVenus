@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@cra-express/core": "^4.0.0",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-scripts": "2.1.1"
+    "bootstrap": "^4.1.3",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-scripts": "2.1.1",
+    "reactstrap": "^6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
