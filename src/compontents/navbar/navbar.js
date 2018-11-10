@@ -1,14 +1,8 @@
-import React from 'react';
-import './navbar.css';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from 'reactstrap';
+import React from "react";
+import "./navbar.css";
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
+
+import { Link } from "react-router-dom";
 
 export default class Makeithappennav extends React.Component {
   // This line replaces the constructor above and is the new ES6 syntax.
@@ -32,23 +26,26 @@ export default class Makeithappennav extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">
+          <Link to="/">
             <img src="/images/logo.png" alt="Make It Happen" />
-          </NavbarBrand>
+          </Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/budgetsetup">Setup</NavLink>
+                <Link to="/budgetsetup">Setup</Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/debt">Add Debt</NavLink>
+                <Link to="/budget">Budget</Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/dream">Add Dream</NavLink>
+                <Link to="/debt">Add Debt</Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/loginsignup">Sign Up | Login </NavLink>
+                <Link to="/dream">Add Dream</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/loginsignup">Sign Up | Login </Link>
               </NavItem>
             </Nav>
           </Collapse>

@@ -1,3 +1,9 @@
 img {
   width: 150px;
 }
+
+.nav-item a {
+  margin: 5px;
+  color: green;
+  text-transform: capitalize;
+}
