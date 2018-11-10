@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
-import './App.css';
-import Makeithappennav from './compontents/navbar/navbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Main from './pages/Main';
-import Budget from './pages/Budget';
-import BudgetSetup from './pages/BudgetSetup';
-import Dream from './pages/Dream';
-import Debt from './pages/Debt';
-import LoginSignup from './pages/LoginSignup';
+import React, { Component } from "react";
+import "./App.css";
+import Makeithappennav from "./compontents/navbar/navbar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Main from "./pages/Main";
+import Budget from "./pages/Budget";
+import BudgetSetup from "./pages/BudgetSetup";
+import Dream from "./pages/Dream";
+import Debt from "./pages/Debt";
+import LoginSignup from "./pages/LoginSignup";
 
 class App extends Component {
+  state = {
+    key: "value"
+  };
+
   render() {
+    console.log(this.state.key);
     return (
       <Router>
         <div>
