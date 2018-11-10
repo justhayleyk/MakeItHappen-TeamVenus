@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Container,
   Row,
@@ -8,17 +8,17 @@ import {
   FormGroup,
   Label,
   Input
-} from "reactstrap";
-import BudgetTable from "../compontents/Table/BudgetTable";
+} from 'reactstrap';
+import BudgetTable from '../compontents/Table/BudgetTable';
 
 // import Jumbotron from '../../components/Jumbotron';
 class BudgetSetup extends Component {
   state = [
     {
-      Name: "",
-      Amount: "",
-      Frequency: "",
-      Date: ""
+      Name: '',
+      Amount: '',
+      Frequency: '',
+      Date: ''
     }
   ];
 
@@ -34,50 +34,60 @@ class BudgetSetup extends Component {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
 
+    console.log(event);
+
     this.setState({
-      Name: "",
-      Amount: "",
-      Frequency: "",
-      Date: ""
+      Name: '',
+      Amount: '',
+      Frequency: '',
+      Date: ''
     });
-    console.log("Button was clicked");
+    console.log('Button was clicked');
     console.log(`Type: ${this.state.nameIncExp}`);
     console.log(`Amount: ${this.state.amount}`);
     console.log(`Freq: ${this.state.frequency}`);
     console.log(`Cat: ${this.state.category}`);
     console.log(`Date: ${this.state.date}`);
+
+    if (this.state.category === 'income') {
+      console.log(`income pushed`);
+      return this.setState.push(this.incomeData);
+    } else {
+      console.log(`exp pushed`);
+      return this.setState.push(this.expData);
+    }
   };
 
   incomeData = [
     {
       id: 1,
-      Name: "Take Home Pay",
-      Amount: "$5000",
-      Frequency: "monthly",
-      Date: "10-31-18"
+      Name: 'Take Home Pay',
+      Amount: '$5000',
+      Frequency: 'monthly',
+      Date: '10-31-18'
     },
     {
       id: 2,
-      Name: "Uber Pay",
-      Amount: "150",
-      Frequency: "Wk",
-      Date: "11-01-18"
+      Name: 'Uber Pay',
+      Amount: '150',
+      Frequency: 'Wk',
+      Date: '11-01-18'
     }
   ];
   expData = [
     {
       id: 1,
-      Name: "Bell Canda",
-      Amount: "$250",
-      Frequency: "monthly",
-      Date: "10-20-18"
+      Name: 'Bell Canda',
+      Amount: '$250',
+      Frequency: 'monthly',
+      Date: '10-20-18'
     },
     {
       id: 2,
-      Name: "Rent",
-      Amount: "1550",
-      Frequency: "Monthly",
-      Date: "11-01-18"
+      Name: 'Rent',
+      Amount: '1550',
+      Frequency: 'Monthly',
+      Date: '11-01-18'
     }
   ];
 
