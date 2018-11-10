@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Container, Row, Col } from "reactstrap";
-import BudgetTable from "../compontents/Table/BudgetTable";
+import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
+// import BudgetTable from "../compontents/Table/BudgetTable";
 
 class Budget extends Component {
   render() {
