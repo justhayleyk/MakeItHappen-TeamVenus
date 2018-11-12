@@ -7,8 +7,7 @@ class StrategyPicker extends Component {
     super();
 
     this.state = {
-      strategy: '',
-      debtStrategy:''
+      strategy: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +22,8 @@ class StrategyPicker extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    alert(`You chose the ${this.state.size} strategy to pay down debt.`);
   }
 
   render() {
@@ -54,7 +55,7 @@ class StrategyPicker extends Component {
             <label>
               <input
                 type="radio"
-                value="small"
+                value="Snowball"
                 checked={this.state.strategy === 'Snowball'}
                 onChange={this.handleChange}
               />
@@ -66,7 +67,7 @@ class StrategyPicker extends Component {
             <label>
               <input
                 type="radio"
-                value="medium"
+                value="Avalanche"
                 checked={this.state.strategy === 'Avalanche'}
                 onChange={this.handleChange}
               />
@@ -78,7 +79,7 @@ class StrategyPicker extends Component {
             <label>
               <input
                 type="radio"
-                value="large"
+                value="Hghest Interest"
                 checked={this.state.strategy === 'Highest_Interest'}
                 onChange={this.handleChange}
               />
@@ -91,11 +92,8 @@ class StrategyPicker extends Component {
           Make your choice
         </button>
       </form>
-
-      
     );
   }
-  DebtStrategy = {this.state.strategy};
 }
 
 React.render(<StrategyPicker />, document.getElementById('app'));
