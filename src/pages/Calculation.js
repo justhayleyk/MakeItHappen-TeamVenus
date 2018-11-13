@@ -19,10 +19,12 @@ import {
   ListGroupItem
 } from 'reactstrap';
 
+class Calculations extends Component {
+
 // need to bring in all existing debts from the database and place in an array
 // will hard-code data for MVP purposes
 
-const currentdebt = [
+state = currentdebt = [
   {
     debtname: 'Car Loan',
     balance: 12000,
@@ -60,7 +62,7 @@ const currentdebt = [
   }
 ];
 
-class Calculations extends Component {
+
   componentDidMount() {
     API.getDebt(this.props.match.params.id)
       .then(res => this.setState({ debt: res.data }))
@@ -83,11 +85,10 @@ class Calculations extends Component {
   // requires updating the new amount of each balance outstanding
   // which requires an update function/route back to the database.
 
-  render() {
-    const { currentdebt } = this.state;
-    let totalMinPay = 0;
-    let totalDebt = 0;
-    currentdebt.forEach(debt => {
+  
+    totalMinPay = 0;
+    totalDebt = 0;
+    const = currentdebt.map(debt => {
       // get a total of all existing minimum monthly payments
       totalMinPay += debt.minimumpayment;
       // get the current amount of all total debt owing
@@ -96,20 +97,20 @@ class Calculations extends Component {
     // sort by either amount owing or interest rate to accomodate Snowball, Avalanche or HighInterest
     // have to sort by currentdebt.debt.amount to find the highest amount, the lowest amount, and then sort by currentdebt.debt.interest to find the highest interest rate.
 
-    let maxamount = 0;
-    let snowballid = 0;
-    for (i = 0; i < currentdebt.length; i++) {
-      if (currentdebt.amount[i] > currentdebt.amount[i + 1]) {
-        maxamount = currentdebt.amount[i];
-        snowballid = currentdebt.id[i];
-      } else {
-        maxamount = currentdebt.amount[i + 1];
-        snowballid = currentdebt.id[i + 1];
-      }
-    }
+    // maxamount = 0;
+    // snowballid = 0;
+    // for (i = 0; i < currentdebt.length; i++) {
+    //   if (currentdebt.amount[i] > currentdebt.amount[i + 1]) {
+    //     maxamount = currentdebt.amount[i];
+    //     snowballid = currentdebt.id[i];
+    //   } else {
+    //     maxamount = currentdebt.amount[i + 1];
+    //     snowballid = currentdebt.id[i + 1];
+    //   }
+    // }
 
-    let minamount = 0;
-    let avalancheid = 0;
+    minamount = 0;
+    avalancheid = 0;
     for (i = 0; i < currentdebt.length; i++) {
       if (currentdebt.amount[i] < currentdebt.amount[i + 1]) {
         minamount = currentdebt.amount[i];
@@ -152,7 +153,9 @@ class Calculations extends Component {
           currentdebt.balance[i] - currentdebt.mthlypay[i];
         currentdebt.balance[interestid] = currentdebt.balance - value;
       }
-    }
+    };
+
+    render() {
 
     return (
       <Container fluid>
@@ -215,7 +218,7 @@ class Calculations extends Component {
             </Button>
           </form>
         </Row>
-        {let monthsRemain = {totalDebt}/{{ totalMinPay } + { value }}};}
+        {let monthsRemain = {totalDebt}/{{ totalMinPay } + { value }}}
         <Row>
           <h3>
             With those monthly payments, you will be out of debt in
