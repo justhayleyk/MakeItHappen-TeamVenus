@@ -4,12 +4,18 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
 
-const API_PORT = 3001;
+const API_PORT = 3001 || process.env.PORT;
 const app = express();
 const router = express.Router();
 
 // this is our MongoDB database
-const dbRoute = 'mongodb://admin:imadmin1@ds039768.mlab.com:39768/makeithappen';
+const dbRoute =
+  'mongodb://' +
+  process.env.DB_USER +
+  ':' +
+  process.env.DB_PASS +
+  '@' +
+  process.env.DB_HOST;
 
 // connects our back end code with the database
 mongoose.connect(
