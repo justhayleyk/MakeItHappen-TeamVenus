@@ -92,7 +92,6 @@ class BudgetSetup extends Component {
   ];
 
   render() {
-    console.log(this.state.key);
     return (
       <Container>
         <Row>

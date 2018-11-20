@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Row, Container } from '../../components/Grid';
-import Jumbotron from '../../components/Jumbotron';
-import API from '../../utils/API';
-import { List, ListItem } from '../../components/List';
-import StrategyPicker from '../pages/strategy';
+//import { Link } from 'react-router-dom';
+//import { Col, Row, Container } from '../../components/Grid';
+//import Jumbotron from '../../components/Jumbotron';
+//import API from '../../utils/API';
+//import { List, ListItem } from '../../components/List';
+//import StrategyPicker from '../pages/Strategy';
+import BudgetTable from '../compontents/Table/BudgetTable';
 import {
-  Container,
-  Row,
   Col,
+  Row,
+  Container,
   Button,
   Form,
   FormGroup,
+  Jumbotron,
   Label,
   Input,
-  Jumbotron,
   ListGroup,
   ListGroupItem
 } from 'reactstrap';
 
-class Calculations extends Component {
+class Calculation extends Component {
   // need to bring in all existing debts from the database and place in an array
   // will hard-code data for MVP purposes
-
-  //not the correct way to assign state - TODO
 
   state = {
     debts: [],
@@ -35,7 +34,7 @@ class Calculations extends Component {
       minimumpayment: 0,
       alternateamount: 0
     },
-    monthsRemain: 0,
+    monthsRemaining: 0,
     totalDebt: 0,
     totalMinPay: 0
   };
@@ -51,28 +50,35 @@ class Calculations extends Component {
     event.preventDefault();
     if (
       //modify according to object notation
-      this.state.currentDebt.debtname &&
-      this.state.currentDebt.amount &&
-      this.state.currentDebt.interestrate &&
-      this.state.currentDebt.compounding &&
-      this.state.currentDebt.minimumpayment &&
-      this.state.currentDebt.alternateamount
+      !this.state.currentDebt.debtname ||
+      !this.state.currentDebt.amount ||
+      !this.state.currentDebt.interestrate ||
+      !this.state.currentDebt.compounding ||
+      !this.state.currentDebt.minimumpayment ||
+      !this.state.currentDebt.alternateamount
     ) {
-      API.saveDebt({
-        debtname: this.state.debtname,
-        amount: this.state.amount,
-        interestrate: this.state.interestrate,
-        compounding: this.state.compounding,
-        minimumpayment: this.state.minimumpayment,
-        alternateamount: this.state.alternateamount
-      })
-        .then(res => {
-          this.loadDebts().then(() => {
-            console.log(this.state);
-          });
-        })
-        .catch(err => console.log(err));
+      alert('Record the details of your debt here');
+    } else {
+      alert('Thank you');
     }
+
+    //{
+    // API.saveDebt({
+    //  debtname: this.state.debtname,
+    // amount: this.state.amount,
+    //interestrate: this.state.interestrate,
+    // compounding: this.state.compounding,
+    //  minimumpayment: this.state.minimumpayment,
+    //  alternateamount: this.state.alternateamount
+    //     })
+    //       .then(res => {
+    //         this.loadDebts().then(() => {
+    //           console.log(this.state);
+    //         });
+    //       })
+    //       .catch(err => console.log(err));
+    //   }
+    // };
   };
 
   handleCalculations = () => {
@@ -82,42 +88,42 @@ class Calculations extends Component {
     let debtData = [
       {
         debtname: 'Car Loan',
-        balance: 12000,
-        interest: 7.0,
-        frequency: 'monthly',
-        mthlypay: 485.0,
+        amount: 12000,
+        interestrate: 7.0,
+        compounding: 'monthly',
+        minimumpayment: 485.0,
         alternateamount: 210
       },
       {
         debtname: 'Mortgage',
-        balance: 200000,
-        interest: 5.0,
-        frequency: 'monthly',
-        mthlypay: 584.0,
+        amount: 200000,
+        interestrate: 5.0,
+        compounding: 'monthly',
+        minimumpayment: 584.0,
         alternateamount: 0
       },
       {
         debtname: 'Big screen TV',
-        balance: 3000,
-        interest: 21.99,
-        frequency: 'monthly',
-        mthlypay: 249.0,
+        amount: 3000,
+        interestrate: 21.99,
+        compounding: 'monthly',
+        minimumpayment: 249.0,
         alternateamount: 0
       },
       {
         debtname: 'Student Loan',
-        balance: 22000,
-        interest: 5.0,
-        frequency: 'monthly',
-        mthlypay: 315.0,
+        amount: 22000,
+        interestrate: 5.0,
+        compounding: 'monthly',
+        minimumpayment: 315.0,
         alternateamount: 0
       },
       {
         debtname: 'Snowmobile Loan',
-        balance: 6000,
-        interest: 8.0,
-        frequency: 'monthly',
-        mthlypay: 267.0,
+        amount: 6000,
+        interestrate: 8.0,
+        compounding: 'monthly',
+        minimumpayment: 267.0,
         alternateamount: 0
       }
     ];
@@ -141,7 +147,7 @@ class Calculations extends Component {
     //this won't work for multiple alternate amounts, whether in state or array
     //===========================================================================
 
-    let monthsremaining =
+    let monthsRemaining =
       totalDebt / (totalMinPay + this.debtData[0].alternateamount);
 
     // need to call the handleCalculations function in render to print out results
@@ -152,9 +158,10 @@ class Calculations extends Component {
     //figure out the logic for monthsRemaining and amount (state)
     // ================================================================
 
-    this.setState({
-      amount: this.state.amount[i] - this.state.minimumpayment[i]
-    });
+    //this.setState({
+    //for (let i = 0; i < debtData.length; i++) {
+    //amount: this.state.amount[i] - this.state.minimumpayment[i],
+    //});
   };
 
   render() {
@@ -198,7 +205,7 @@ class Calculations extends Component {
                 value={this.state.alternateamount}
                 onChange={this.handleInputChange}
                 name="alternateamount"
-                placeholder="Alternate Payment Amount"
+                placeholder="One time additional payment"
               />
               <Button
                 disabled={
@@ -239,17 +246,20 @@ class Calculations extends Component {
               <h3>No Results to Display</h3>
             )} */}
             <BudgetTable title="Your DEBT" tableData={this.debtData} />
+            {console.log('this is debtData: ' + this.debtData)}
           </Col>
         </Row>
         <Row>
           <h1>How much longer will I be in debt?</h1>
           <Button onClick={this.handleCalculations}>Get my debt report</Button>
+          <h3> You will be in debt for {this.state.monthsRemaining} months.</h3>
         </Row>
       </Container>
     );
   }
 }
-export default Calculations;
+
+export default Calculation;
 
 //         {/* can't create and assign new vars inside render - TODO */}
 
@@ -262,7 +272,7 @@ export default Calculations;
 
 // perhaps for MVP will just let user assign what alternate amount they can apply to whatever debt
 
-//         {/* {let monthsRemain = {totalDebt} / { {totalMinPay} + {value} }} */}
+//         {/* {let monthsRemaining = {totalDebt} / { {totalMinPay} + {value} }} */}
 //         <Row>
 //           <h3>
 //             With those monthly payments, you will be out of debt in $
@@ -308,9 +318,9 @@ export default Calculations;
 // requires updating the new amount of each balance outstanding
 // which requires an update function/route back to the database.
 
-//   ========================================================================
+//
 //                  PUT THIS INSIDE A REACT METHOD - TODO
-// ==========================================================================
+//
 
 // testMethod() {
 //   totalMinPay = 0;
@@ -324,26 +334,25 @@ export default Calculations;
 //   // sort by either amount owing or interest rate to accomodate Snowball, Avalanche or HighInterest
 //   // have to sort by currentdebt.debt.amount to find the highest amount, the lowest amount, and then sort by currentdebt.debt.interest to find the highest interest rate.
 
-//   let maxamount = 0,
-//     snowballid = 0,
-//     minamount = 0,
-//     avalancheid = 0,
-//     interestamount = 0,
-//     interestid = 0;
+//   let snowballid = 0,
+//   let minamount = 0,
 //   for (i = 0; i < currentdebt.length; i++) {
-//     if (currentdebt.amount[i] > currentdebt.amount[i + 1]) {
-//       maxamount = currentdebt.amount[i];
-//       snowballid = currentdebt.id[i];
-//     } else {
-//       maxamount = currentdebt.amount[i + 1];
-//       snowballid = currentdebt.id[i + 1];
-//     }
-
 //     if (currentdebt.amount[i] < currentdebt.amount[i + 1]) {
 //       minamount = currentdebt.amount[i];
-//       avalancheid = currentdebt.id[i];
+//       snowballid = currentdebt.id[i];
 //     } else {
 //       minamount = currentdebt.amount[i + 1];
+//       snowballid = currentdebt.id[i + 1];
+//     }
+//     console.log('minamount = ' + minamount);
+//     console.log('snowballid = ' + snowballid);
+//     }
+
+//     if (currentdebt.amount[i] > currentdebt.amount[i + 1]) {
+//       maxamount = currentdebt.amount[i];
+//       avalancheid = currentdebt.id[i];
+//     } else {
+//       maxamount = currentdebt.amount[i + 1];
 //       avalancheid = currentdebt.id[i + 1];
 //     }
 
@@ -385,13 +394,13 @@ export default Calculations;
 //   if ((this.state.Strategy = 'Snowball')) {
 //     for (i = 0; i < currentdebt.length; i++) {
 //       currentdebt.balance[i] =
-//         currentdebt.balance[i] - currentdebt.mthlypay[i];
+//         currentdebt.balance[i] - currentdebt.minimumpayment[i];
 //       currentdebt.balance[snowballid] = currentdebt.balance - value;
 //     }
 //   } else if ((this.state.Strategy = 'Avalanche')) {
 //     for (i = 0; i < currentdebt.length; i++) {
 //       currentdebt.balance[i] =
-//         currentdebt.balance[i] - currentdebt.mthlypay[i];
+//         currentdebt.balance[i] - currentdebt.minimumpayment[i];
 //       currentdebt.balance[avalancheid] = currentdebt.balance - value;
 //     }
 //   } else {

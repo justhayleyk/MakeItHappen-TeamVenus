@@ -157,7 +157,7 @@ class Debts extends Component {
                 value={this.state.currentbalance}
                 onChange={this.handleInputChange}
                 name="currentbalance"
-                placeholder="Current Balance (required)"
+                placeholder="One-time additional payment"
               />
               <Button
                 disabled={

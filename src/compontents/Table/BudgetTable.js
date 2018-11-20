@@ -1,6 +1,6 @@
-import React from "react";
-import { Table } from "reactstrap";
-import BugetTableRow from "./BudgetTableRow";
+import React from 'react';
+import { Table } from 'reactstrap';
+import BugetTableRow from './BudgetTableRow';
 
 export default class BudgetTable extends React.Component {
   render() {
@@ -10,8 +10,8 @@ export default class BudgetTable extends React.Component {
         <Table>
           <thead>
             <tr>
-              {Object.keys(this.props.tableData[0]).map(function(key) {
-                return <th>{key}</th>;
+              {Object.keys(this.props.tableData[0]).map(function(item) {
+                return <th>{item}</th>;
               })}
             </tr>
           </thead>
