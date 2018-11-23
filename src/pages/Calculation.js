@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
-//import { Col, Row, Container } from '../../components/Grid';
-//import Jumbotron from '../../components/Jumbotron';
 //import API from '../../utils/API';
-//import { List, ListItem } from '../../components/List';
 //import StrategyPicker from '../pages/Strategy';
-import BudgetTable from '../compontents/Table/BudgetTable';
-import {
-  Col,
-  Row,
-  Container,
-  Button,
-  Form,
-  FormGroup,
-  Jumbotron,
-  Label,
-  Input,
-  ListGroup,
-  ListGroupItem
-} from 'reactstrap';
+import BudgetTable from '../components/Table/BudgetTable';
+import { Col, Row, Container, Button, Form, Input } from 'reactstrap';
 
 class Calculation extends Component {
   // need to bring in all existing debts from the database and place in an array
@@ -147,8 +131,8 @@ class Calculation extends Component {
     //this won't work for multiple alternate amounts, whether in state or array
     //===========================================================================
 
-    let monthsRemaining =
-      totalDebt / (totalMinPay + this.debtData[0].alternateamount);
+    //let monthsRemaining =
+    //totalDebt / (totalMinPay + this.debtData[0].alternateamount);
 
     // need to call the handleCalculations function in render to print out results
 
@@ -165,44 +149,45 @@ class Calculation extends Component {
   };
 
   render() {
+    console.log('here');
     return (
       <Container>
         <Row>
           <Col size="md-6">
             <h1>Add new Debt</h1>
-            <Form>
+            <Form onSubmit={this.handleFormSubmit}>
               <Input
-                value={this.state.debtname}
+                value={this.state.currentDebt.debtname}
                 onChange={this.handleInputChange}
                 name="debtname"
                 placeholder="Name of Debt (required)"
               />
               <Input
-                value={this.state.amount}
+                value={this.state.currentDebt.amount}
                 onChange={this.handleInputChange}
                 name="amount"
                 placeholder="Original Amount Owing (required)"
               />
               <Input
-                value={this.state.interestrate}
+                value={this.state.currentDebt.interestrate}
                 onChange={this.handleInputChange}
                 name="interestrate"
                 placeholder="Interest Rate (required)"
               />
               <Input
-                value={this.state.compounding}
+                value={this.state.currentDebt.compounding}
                 onChange={this.handleInputChange}
                 name="compounding"
                 placeholder="Frequency Interest Compounds (required)"
               />
               <Input
-                value={this.state.minimumpayment}
+                value={this.state.currentDebt.minimumpayment}
                 onChange={this.handleInputChange}
                 name="minimumpayment"
                 placeholder="Minimum Payment Amount (required)"
               />
               <Input
-                value={this.state.alternateamount}
+                value={this.state.currentDebt.alternateamount}
                 onChange={this.handleInputChange}
                 name="alternateamount"
                 placeholder="One time additional payment"
@@ -210,12 +195,12 @@ class Calculation extends Component {
               <Button
                 disabled={
                   !(
-                    this.state.debtname &&
-                    this.state.amount &&
-                    this.state.interestrate &&
-                    this.state.compounding &&
-                    this.state.minimumpayment &&
-                    this.state.alternateamount
+                    this.state.currentDebt.debtname &&
+                    this.state.currentDebt.amount &&
+                    this.state.currentDebt.interestrate &&
+                    this.state.currentDebt.compounding &&
+                    this.state.currentDebt.minimumpayment &&
+                    this.state.currentDebt.alternateamount
                   )
                 }
                 onClick={this.handleFormSubmit}

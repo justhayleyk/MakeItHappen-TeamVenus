@@ -1,78 +1,86 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import API from '../utils/API';
 import {
+  Label,
   Card,
   CardBody,
-  CardTitle,
-  Form,
-  FormGroup,
-  Label,
   Input,
   Row,
-  Col
-} from "reactstrap";
-import BudgetTable from "../compontents/Table/BudgetTable";
+  Col,
+  FormGroup,
+  CardTitle,
+  Form
+} from 'reactstrap';
+//import BudgetTable from '../components/Table/BudgetTable';
 
 class Dream extends Component {
   state = {
-    dreamName: "",
-    estimatedAmont: "",
-    targetDate: "",
-    priority: ""
+    dreams: [],
+    dreamName: '',
+    estimatedAmount: 0,
+    targetDate: '',
+    priority: ''
+  };
+
+  componentDidMount() {
+    this.loadDreams();
+  }
+
+  loadDreams = () => {
+    API.getDreams()
+      .then(res =>
+        this.setState({
+          dreams: res.data,
+          dreamName: '',
+          estimatedAmount: 0,
+          targetDate: '',
+          priority: ''
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  deleteDreams = id => {
+    API.deleteDream(id)
+      .then(res => this.loadDreams())
+      .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
-
-    // Updating the input's state
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
 
   handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    if (
-      !this.state.dreamName ||
-      !this.state.estimatedAmont ||
-      !this.state.targetDate ||
-      !this.state.priority
-    ) {
-      alert("Fill in all the data to help us plan achieve your Dreams!");
-    } else {
-      alert(
-        `Name:  ${this.state.dreamName}  Estimated Amount : ${
-          this.state.estimatedAmont
-        } Target Date : ${this.state.targetDate} Priority : ${
-          this.state.priority
-        }`
-      );
+    if (this.state.title && this.state.author) {
+      API.saveDream({
+        dreamName: this.state.dreamName,
+        estimatedAmount: this.state.estimatedAmount,
+        targetDate: this.state.targetDate,
+        priority: this.state.priority
+      })
+        .then(res => this.loadDreams())
+        .catch(err => console.log(err));
     }
-
-    this.setState({
-      dreamName: "",
-      estimatedAmont: "",
-      targetDate: "",
-      priority: ""
-    });
   };
 
   dreamData = [
     {
-      id: "1",
-      dreamName: "Dream1",
-      estimatedAmont: "2000",
-      targetDate: "2019-02-02",
-      priority: "High"
+      id: '1',
+      dreamName: 'Dream1',
+      estimatedAmont: '2000',
+      targetDate: '2019-02-02',
+      priority: 'High'
     },
     {
-      id: "2",
-      dreamName: "Dream2",
-      estimatedAmont: "4000",
-      targetDate: "2019-02-02",
-      priority: "High"
+      id: '2',
+      dreamName: 'Dream2',
+      estimatedAmont: '4000',
+      targetDate: '2019-02-02',
+      priority: 'High'
     }
   ];
 
@@ -102,9 +110,9 @@ class Dream extends Component {
                     <Label for="estimatedAmont">Estimated Amount</Label>
                     <Input
                       value={this.state.estimatedAmont}
-                      type="number"
-                      name="estimatedAmont"
-                      id="estimatedAmont"
+                      type="integer"
+                      name="estimatedAmount"
+                      id="estimatedAmount"
                       placeholder="$$"
                       onChange={this.handleInputChange}
                     />
@@ -141,9 +149,7 @@ class Dream extends Component {
           </Col>
           <Col sm="6">
             <Card>
-              <CardBody>
-                <BudgetTable title="Your Dreams" tableData={this.dreamData} />
-              </CardBody>
+              <CardBody />
             </Card>
           </Col>
         </Row>

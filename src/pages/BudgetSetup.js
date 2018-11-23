@@ -9,18 +9,22 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import BudgetTable from '../compontents/Table/BudgetTable';
+import BudgetTable from '../components/Table/BudgetTable';
 
 // import Jumbotron from '../../components/Jumbotron';
 class BudgetSetup extends Component {
-  state = [
-    {
-      Name: '',
-      Amount: '',
-      Frequency: '',
-      Date: ''
-    }
-  ];
+  state = {
+    currentBudget: {
+      id: 0,
+      name: '',
+      amount: 0,
+      frequency: '',
+      date: ''
+    },
+    category: '',
+    incBudget: [],
+    expBudget: []
+  };
 
   handleInputChange = event => {
     let value = event.target.value;
@@ -37,57 +41,66 @@ class BudgetSetup extends Component {
     console.log(event);
 
     this.setState({
-      Name: '',
-      Amount: '',
-      Frequency: '',
-      Date: ''
+      currentBudget: {
+        id: this.state.currentBudget.id + 1,
+        name: '',
+        amount: '',
+        frequency: '',
+        date: ''
+      }
     });
     console.log('Button was clicked');
-    console.log(`Type: ${this.state.nameIncExp}`);
-    console.log(`Amount: ${this.state.amount}`);
-    console.log(`Freq: ${this.state.frequency}`);
-    console.log(`Cat: ${this.state.category}`);
-    console.log(`Date: ${this.state.date}`);
+    console.log(`name: ${this.state.currentBudget.name}`);
+    console.log(`amount: ${this.state.currentBudget.amount}`);
+    console.log(`freq: ${this.state.currentBudget.frequency}`);
+    console.log(`date: ${this.state.currentBudget.date}`);
+    console.log(`cat: ${this.state.category}`);
 
-    if (this.state.category === 'income') {
+    if (this.state.category === 'Income') {
       console.log(`income pushed`);
-      return this.setState.push(this.incomeData);
+      this.state.incBudget.push(this.state.currentBudget);
+      this.incData.push(this.state.currentBudget);
+      console.log(this.state.incBudget);
+      console.log(this.incData);
     } else {
       console.log(`exp pushed`);
-      return this.setState.push(this.expData);
+      this.state.expBudget.push(this.state.currentBudget);
+      this.expData.push(this.state.currentBudget);
+      console.log(this.state.expBudget);
+      console.log(this.expData);
     }
   };
 
-  incomeData = [
+  incData = [
     {
       id: 1,
-      Name: 'Take Home Pay',
-      Amount: '$5000',
-      Frequency: 'monthly',
-      Date: '10-31-18'
+      name: 'Take Home Pay',
+      amount: '$5000',
+      frequency: 'monthly',
+      date: '10-31-18'
     },
     {
       id: 2,
-      Name: 'Uber Pay',
-      Amount: '150',
-      Frequency: 'Wk',
-      Date: '11-01-18'
+      name: 'Uber Pay',
+      amount: '150',
+      frequency: 'Wk',
+      date: '11-01-18'
     }
   ];
   expData = [
     {
       id: 1,
-      Name: 'Bell Canda',
-      Amount: '$250',
-      Frequency: 'monthly',
-      Date: '10-20-18'
+      name: 'Bell Canda',
+      amount: '$250',
+      frequency: 'monthly',
+      date: '10-20-18'
     },
     {
       id: 2,
-      Name: 'Rent',
-      Amount: '1550',
-      Frequency: 'Monthly',
-      Date: '11-01-18'
+      name: 'Rent',
+      amount: '1550',
+      frequency: 'Monthly',
+      date: '11-01-18'
     }
   ];
 
@@ -100,8 +113,8 @@ class BudgetSetup extends Component {
               <FormGroup>
                 <Label for="text">Name of Income Or Expense:</Label>
                 <Input
-                  value={this.state.nameIncExp}
-                  type="text "
+                  value={this.state.currentBudget.name}
+                  type="text"
                   name="nameIncExp"
                   onChange={this.handleInputChange}
                   id="nameIncExp"
@@ -111,18 +124,19 @@ class BudgetSetup extends Component {
               <FormGroup>
                 <Label for="text">Amount:</Label>
                 <Input
-                  value={this.state.amount}
-                  type="text "
+                  value={this.state.currentBudget.amount}
+                  type="text"
                   name="amount"
                   onChange={this.handleInputChange}
                   id="amount"
                   placeholder="250.00"
                 />
               </FormGroup>
+
               <FormGroup>
                 <Label for="frequency">Frequency</Label>
                 <Input
-                  value={this.state.frequency}
+                  value={this.state.currentBudget.frequency}
                   type="select"
                   name="frequency"
                   id="frequency"
@@ -135,6 +149,23 @@ class BudgetSetup extends Component {
                   <option>Monthly</option>
                 </Input>
               </FormGroup>
+
+              {/* <FormGroup>
+                <Label for="frequency">Frequency</Label>
+                <Input
+                  value={this.state.currentBudget.frequency}
+                  type="select"
+                  name="frequency"
+                  id="frequency"
+                  onChange={this.handleInputChange}
+                >
+                  <option>Variable</option>
+                  <option>Daily</option>
+                  <option>Weekly</option>
+                  <option>Bi-Weekly</option>
+                  <option>Monthly</option>
+                </Input>
+              </FormGroup> */}
               <FormGroup>
                 <Label for="category">Category</Label>
                 <Input
@@ -151,7 +182,7 @@ class BudgetSetup extends Component {
               <FormGroup>
                 <Label for="exampleDate">Date</Label>
                 <Input
-                  value={this.state.date}
+                  value={this.state.currentBudget.date}
                   type="date"
                   name="date"
                   id="exampleDate"
@@ -164,7 +195,7 @@ class BudgetSetup extends Component {
             </Form>
           </Col>
           <Col xs="6">
-            <BudgetTable title="Your Incomes" tableData={this.incomeData} />
+            <BudgetTable title="Your Incomes" tableData={this.incData} />
             <BudgetTable title="Your Expenses" tableData={this.expData} />
           </Col>
         </Row>

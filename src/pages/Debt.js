@@ -14,7 +14,7 @@ import {
   ListGroupItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import BudgetTable from '../compontents/Table/BudgetTable';
+import BudgetTable from '../components/Table/BudgetTable';
 
 class Debts extends Component {
   state = {

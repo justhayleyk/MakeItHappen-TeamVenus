@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Makeithappennav from './compontents/navbar/navbar';
+import Makeithappennav from './components/navbar/navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Main from './pages/Main';
 import Budget from './pages/Budget';
@@ -16,7 +16,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.key);
     return (
       <Router>
         <div>
@@ -25,7 +24,7 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/budget" component={Budget} />
             <Route exact path="/budgetsetup" component={BudgetSetup} />
-            <Route exact path="/Calculation" component={Calculations} />
+            <Route exact path="/calculation" component={Calculations} />
             <Route exact path="/dream" component={Dream} />
             <Route exact path="/loginsignup" component={LoginSignup} />
           </Switch>
