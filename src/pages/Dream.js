@@ -55,6 +55,7 @@ class Dream extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    //tidy up (different state vars)
     if (this.state.title && this.state.author) {
       API.saveDream({
         dreamName: this.state.dreamName,
