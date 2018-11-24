@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 export default {
-  // Gets all dreams
-  getDreams: function() {
-    return axios.get('/api/dreams');
+  // Gets all debts
+  getDebts: function() {
+    return axios.get('/api/debts');
   },
-  // Gets one dream with the given id
-  getDream: function(id) {
-    return axios.get('/api/dreams/' + id);
+  // Gets one specific debt with the given id
+  getDebt: function(id) {
+    return axios.get('/api/debts/' + id);
   },
-  // Deletes one dream with the given id
-  deleteDream: function(id) {
-    return axios.delete('/api/dreams/' + id);
+  // Deletes one debt with the given id
+  deleteDebt: function(id) {
+    return axios.delete('/api/debts/' + id);
   },
-  // Saves a dream to the database
-  saveBook: function(dreamData) {
-    return axios.post('/api/dreams', dreamData);
+  // Saves a debt to the database
+  saveDebt: function(debtData) {
+    return axios.post('/api/debts', debtData);
   }
 };

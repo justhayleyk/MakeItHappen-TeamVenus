@@ -1,30 +1,30 @@
 const db = require('../models');
 
-// Defining methods for the dreamsController
+// Defining methods for the debtController
 module.exports = {
   findAll: function(req, res) {
-    db.Dream.find(req.query)
+    db.Debt.find(req.query)
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    db.Dream.findById(req.params.id)
+    db.Debt.findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    db.Dream.create(req.body)
+    db.Debt.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    db.Dream.findOneAndUpdate({ _id: req.params.id }, req.body)
+    db.Debt.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
-    db.Dream.findById({ _id: req.params.id })
+    db.Debt.findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
